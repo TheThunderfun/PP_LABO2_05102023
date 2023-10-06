@@ -27,10 +27,7 @@ namespace Entidades
         public Numeracion Resultado { get => resultado; }
         public ESistema Sistema { get => sistema; set => sistema = value; }
 
-        public void ActualizaHistorialDeOperaciones(char operador)
-        {
 
-        }
 
         public Calculadora()
         {
@@ -58,7 +55,7 @@ namespace Entidades
                 case '+':
                     if (this.primerOperando == this.segundoOperando)
                     {
-                        this.resultado=new SistemaDecimal((this.primerOperando.ValorNumerico + this.segundoOperando.ValorNumerico).ToString());
+                        this.resultado=MapeaResultado(this.primerOperando.ValorNumerico + this.segundoOperando.ValorNumerico);
                     }
                     else
                     {
@@ -68,7 +65,7 @@ namespace Entidades
                 case '-':
                     if (this.primerOperando == this.segundoOperando)
                     {
-                        this.resultado = new SistemaDecimal((this.primerOperando.ValorNumerico - this.segundoOperando.ValorNumerico).ToString());
+                        this.resultado = MapeaResultado(this.primerOperando.ValorNumerico - this.segundoOperando.ValorNumerico);
                     }
                     else
                     {
@@ -78,7 +75,7 @@ namespace Entidades
                 case '*':
                     if (this.primerOperando == this.segundoOperando)
                     {
-                        this.resultado = new SistemaDecimal((this.primerOperando.ValorNumerico * this.segundoOperando.ValorNumerico).ToString());
+                        this.resultado = MapeaResultado(this.primerOperando.ValorNumerico * this.segundoOperando.ValorNumerico); ;
                     }
                     else
                     {
@@ -88,7 +85,7 @@ namespace Entidades
                 case '/':
                     if (this.primerOperando == this.segundoOperando)
                     {
-                        this.resultado = new SistemaDecimal((this.primerOperando.ValorNumerico / this.segundoOperando.ValorNumerico).ToString());
+                        this.resultado = MapeaResultado(this.primerOperando.ValorNumerico / this.segundoOperando.ValorNumerico);
                     }
                     else
                     {
@@ -100,14 +97,32 @@ namespace Entidades
             }
         }
 
+        public void ActualizaHistorialDeOperaciones(char operador)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            
+            sb.Append(this.Sistema.ToString());
+            sb.Append(this.PrimerOperando.Valor);
+            sb.Append(this.SegundoOperando.Valor);
+            sb.Append(operador);
+            this.Operaciones.Add(sb.ToString());
+        }
         public void EliminarHistorialDeOperaciones()
         {
-
+            this.Operaciones.Clear();
         }
 
         private Numeracion MapeaResultado(double valor)
         {
-            return new Numeracion(valor); 
+            if (this.Sistema == ESistema.Binario)
+            {
+                return new SistemaBinario(valor.ToString());
+            }
+            else
+            {
+                return new SistemaDecimal(valor.ToString());
+            }
         } 
 
 
