@@ -3,11 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace Entidades
 {
-    public enum ESistema
-    {
-        Binario,
-        Decimal
-    }
+
     public abstract class Numeracion
     {
         protected private string msgError;

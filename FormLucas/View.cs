@@ -70,8 +70,7 @@ namespace CalculadoraForm
             this.getOperador(this.txtSegundoOperador.Text);
             operador = (char)this.cmbOperacion.SelectedItem;
             this.calculadora.Calcular(operador);
-            this.calculadora.ActualizaHistorialDeOperaciones(operador)
-            ;
+            this.calculadora.ActualizaHistorialDeOperaciones(operador);
             this.lblResultado.Text = $"Resultado:{calculadora.Resultado.Valor}"; this.MostrarHistorial();
 
 

@@ -4,6 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+public enum ESistema
+{
+    Binario,
+    Decimal
+}
+
 namespace Entidades
 {
     public class Calculadora
@@ -25,18 +31,18 @@ namespace Entidades
         public Numeracion PrimerOperando { get { return primerOperando; } set => primerOperando = value; }
         public Numeracion SegundoOperando { get { return segundoOperando; } set => segundoOperando = value; }
         public Numeracion Resultado { get { return resultado; } }
-        public ESistema Sistema { get { return Calculadora.sistema; } set => Calculadora.sistema = value; }
+        public static ESistema Sistema { get { return Calculadora.sistema; } set => Calculadora.sistema = value; }
 
 
 
-        public Calculadora():this() 
+         public Calculadora() 
         {
             
            this.operaciones= new List<string>();
           
         }
 
-        private Calculadora()
+        static Calculadora()
         {
            Calculadora.sistema= ESistema.Decimal;
         }
@@ -104,7 +110,7 @@ namespace Entidades
             StringBuilder sb = new StringBuilder();
 
             
-            sb.Append(this.Sistema.ToString());
+            sb.Append(Calculadora.Sistema.ToString());
             sb.Append(this.PrimerOperando.Valor);
             sb.Append(this.SegundoOperando.Valor);
             sb.Append(operador);
@@ -117,7 +123,7 @@ namespace Entidades
 
         private Numeracion MapeaResultado(double valor)
         {
-            if (this.Sistema == ESistema.Binario)
+            if (Calculadora.Sistema == ESistema.Binario)
             {
                 return new SistemaBinario(valor.ToString());
             }
