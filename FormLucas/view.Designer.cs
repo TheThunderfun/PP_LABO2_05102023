@@ -1,6 +1,6 @@
 ﻿namespace CalculadoraForm
 {
-    partial class Form1
+    partial class view
     {
         /// <summary>
         ///  Required designer variable.

@@ -1,16 +1,15 @@
 using Entidades;
+using System.Runtime.CompilerServices;
+
 namespace CalculadoraForm
 {
-    public partial class Form1 : Form
+    public partial class view : Form
     {
-        private Operacion calculadora;
-        private Numeracion primerOperando;
-        private Numeracion segundoOperando;
-        private Numeracion resultado;
-        private Numeracion.ESistema sistema = Numeracion.ESistema.Decimal;
+        private Calculadora calculadora;
 
 
-        public Form1()
+
+        public view()
         {
             InitializeComponent();
         }
@@ -18,10 +17,7 @@ namespace CalculadoraForm
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            cmbOperacion.Items.Add('+');
-            cmbOperacion.Items.Add('-');
-            cmbOperacion.Items.Add('/');
-            cmbOperacion.Items.Add('*');
+            this.cmbOperacion.DataSource = new char[] { '+', '-', '*', '/' };
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -67,20 +63,17 @@ namespace CalculadoraForm
 
         private void btnOperar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtPrimerOperador.Text) == false && string.IsNullOrEmpty(txtSegundoOperador.Text) == false)
-            {
-                primerOperando = new Numeracion(txtPrimerOperador.Text, sistema);
-                segundoOperando = new Numeracion(txtSegundoOperador.Text, sistema);
-                calculadora = new Operacion(primerOperando, segundoOperando);
-                char operador = Convert.ToChar(cmbOperacion.SelectedItem);
+            char operador;
+            calculadora.PrimerOperando =
+            this.GetOperador(this.txtPrimerOperando.Text);
+            calculadora.SegundoOperando =
+            this.GetOperador(this.txtSegundoOperando.Text);
+            operador = (char)this.cmbOperacion.SelectedItem;
+            this.calculadora.Calcular(operador);
+            this.calculadora.ActualizaHistorialDeOperaciones(operador)
+            ;
+            this.lblResultado.Text = $"Resultado:{calculadora.Resultado.Valor}"; this.MostrarHistorial();
 
-                resultado = calculadora.Operar(operador);
-                setResultado();
-            }
-            else
-            {
-                lblResultado.Text = "Numero invalido";
-            }
 
         }
 
@@ -98,22 +91,25 @@ namespace CalculadoraForm
 
         private void rdbBinario_CheckedChanged(object sender, EventArgs e)
         {
-            if (rdbBinario.Checked == true)
-            {
-                setResultado();
-            }
+            Calculadora.Sistema = ESistema.Binario;
         }
 
         private void rdbDecimal_CheckedChanged(object sender, EventArgs e)
         {
-            if (rdbDecimal.Checked == true)
-            {
-                setResultado();
-            }
+            Calculadora.Sistema = ESistema.Decimal;
+
         }
 
         private void cmbOperacion_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void MostrarHistorial() 
+        {
+            this.lstHistorial.DataSource = null;
+            this.lstHistorial.DataSource =
+            this.calculadora.Operaciones;
 
         }
     }

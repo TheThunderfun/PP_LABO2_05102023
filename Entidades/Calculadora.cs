@@ -21,27 +21,29 @@ namespace Entidades
             set { }
         }
 
-        public List<string> Operaciones { get => operaciones;}
-        public Numeracion PrimerOperando { get => primerOperando; set => primerOperando = value; }
-        public Numeracion SegundoOperando { get => segundoOperando; set => segundoOperando = value; }
-        public Numeracion Resultado { get => resultado; }
-        public ESistema Sistema { get => sistema; set => sistema = value; }
+        public List<string> Operaciones { get { return operaciones; } }
+        public Numeracion PrimerOperando { get { return primerOperando; } set => primerOperando = value; }
+        public Numeracion SegundoOperando { get { return segundoOperando; } set => segundoOperando = value; }
+        public Numeracion Resultado { get { return resultado; } }
+        public ESistema Sistema { get { return sistema; } set => sistema = value; }
 
 
 
-        public Calculadora()
+        public Calculadora():this() 
         {
-            this.Sistema = ESistema.Decimal;
+            
+           this.operaciones= new List<string>();
+          
         }
 
         private Calculadora()
         {
-
+           this.Sistema= ESistema.Decimal;
         }
 
         public Calculadora(string nombreAlumno)
         {
-
+            this.nombreAlumno=nombreAlumno;
         }
 
         public void Calcular()
@@ -106,11 +108,11 @@ namespace Entidades
             sb.Append(this.PrimerOperando.Valor);
             sb.Append(this.SegundoOperando.Valor);
             sb.Append(operador);
-            this.Operaciones.Add(sb.ToString());
+            this.operaciones.Add(sb.ToString());
         }
         public void EliminarHistorialDeOperaciones()
         {
-            this.Operaciones.Clear();
+            this.operaciones.Clear();
         }
 
         private Numeracion MapeaResultado(double valor)
