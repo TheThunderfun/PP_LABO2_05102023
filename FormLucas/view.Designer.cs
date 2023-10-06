@@ -185,6 +185,7 @@
             listBox1.Name = "listBox1";
             listBox1.Size = new Size(164, 169);
             listBox1.TabIndex = 8;
+            listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             // 
             // label1
             // 
@@ -196,7 +197,7 @@
             label1.TabIndex = 9;
             label1.Text = "Historial";
             // 
-            // Form1
+            // view
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -217,7 +218,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "Form1";
+            Name = "view";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Calculadora Alumno: Francisco Hulej";
             FormClosing += Form1_FormClosing;

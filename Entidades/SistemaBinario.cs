@@ -14,7 +14,7 @@ namespace Entidades
         }
         public SistemaBinario(string valor) : base(valor)
         {
-            EsNumeracionValida(valor);
+            
         }
         public override Numeracion CambiarSistemaDeNumeracion(ESistema sistema)
         {

@@ -25,7 +25,7 @@ namespace Entidades
         public Numeracion PrimerOperando { get { return primerOperando; } set => primerOperando = value; }
         public Numeracion SegundoOperando { get { return segundoOperando; } set => segundoOperando = value; }
         public Numeracion Resultado { get { return resultado; } }
-        public ESistema Sistema { get { return sistema; } set => sistema = value; }
+        public ESistema Sistema { get { return Calculadora.sistema; } set => Calculadora.sistema = value; }
 
 
 
@@ -38,7 +38,7 @@ namespace Entidades
 
         private Calculadora()
         {
-           this.Sistema= ESistema.Decimal;
+           Calculadora.sistema= ESistema.Decimal;
         }
 
         public Calculadora(string nombreAlumno)

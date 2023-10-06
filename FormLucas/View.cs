@@ -35,8 +35,8 @@ namespace CalculadoraForm
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DialogResult respuesta = MessageBox.Show("¿Desea cerrar la aplicacion?", "Cerrar", MessageBoxButtons.YesNo);
-            if (respuesta == DialogResult.No)
+            DialogResult result = MessageBox.Show("Desea cerrar lacalculadora ? ", "Cierre", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.No)
             {
                 e.Cancel = true;
             }
@@ -65,9 +65,9 @@ namespace CalculadoraForm
         {
             char operador;
             calculadora.PrimerOperando =
-            this.GetOperador(this.txtPrimerOperando.Text);
+            this.getOperador(this.txtPrimerOperador.Text);
             calculadora.SegundoOperando =
-            this.GetOperador(this.txtSegundoOperando.Text);
+            this.getOperador(this.txtSegundoOperador.Text);
             operador = (char)this.cmbOperacion.SelectedItem;
             this.calculadora.Calcular(operador);
             this.calculadora.ActualizaHistorialDeOperaciones(operador)
@@ -77,17 +77,6 @@ namespace CalculadoraForm
 
         }
 
-        private void setResultado()
-        {
-            if (rdbBinario.Checked == true && string.IsNullOrEmpty(txtPrimerOperador.Text) == false && string.IsNullOrEmpty(txtSegundoOperador.Text) == false)
-            {
-                lblResultado.Text = $"Resultado:{resultado.ConvertirA(Numeracion.ESistema.Binario)}";
-            }
-            else if (rdbDecimal.Checked == true && string.IsNullOrEmpty(txtPrimerOperador.Text) == false && string.IsNullOrEmpty(txtSegundoOperador.Text) == false)
-            {
-                lblResultado.Text = $"Resultado:{resultado.valor}";
-            }
-        }
 
         private void rdbBinario_CheckedChanged(object sender, EventArgs e)
         {
@@ -105,11 +94,25 @@ namespace CalculadoraForm
 
         }
 
-        private void MostrarHistorial() 
+        private Numeracion getOperador(string value)
         {
-            this.lstHistorial.DataSource = null;
-            this.lstHistorial.DataSource =
+            if (Calculadora.Sistema == ESistema.Binario)
+            {
+                return new SistemaBinario(value);
+            }
+            return new SistemaDecimal(value);
+        }
+
+        private void MostrarHistorial()
+        {
+            this.listBox1.DataSource = null;
+            this.listBox1.DataSource =
             this.calculadora.Operaciones;
+
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }
