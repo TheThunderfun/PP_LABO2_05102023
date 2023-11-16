@@ -28,19 +28,19 @@ namespace Entidades
         }
 
         public List<string> Operaciones { get { return operaciones; } }
-        public Numeracion PrimerOperando { get { return primerOperando; } set => primerOperando = value; }
-        public Numeracion SegundoOperando { get { return segundoOperando; } set => segundoOperando = value; }
+        public Numeracion PrimerOperando { get { return primerOperando; } set { primerOperando = value; } }
+        public Numeracion SegundoOperando { get { return segundoOperando; } set{ segundoOperando = value; } }
         public Numeracion Resultado { get { return resultado; } }
-        public static ESistema Sistema { get { return Calculadora.sistema; } set => Calculadora.sistema = value; }
+        public static ESistema Sistema { get { return Calculadora.sistema; } set { Calculadora.sistema = value; } }
 
 
 
          public Calculadora() 
-        {
+         {
             
            this.operaciones= new List<string>();
           
-        }
+         }
 
         static Calculadora()
         {

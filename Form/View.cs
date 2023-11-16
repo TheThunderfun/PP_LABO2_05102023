@@ -64,16 +64,13 @@ namespace CalculadoraForm
         private void btnOperar_Click(object sender, EventArgs e)
         {
             char operador;
-            calculadora.PrimerOperando =
-            this.getOperador(this.txtPrimerOperador.Text);
-            calculadora.SegundoOperando =
-            this.getOperador(this.txtSegundoOperador.Text);
+            calculadora.PrimerOperando =this.getOperador(this.txtPrimerOperador.Text);
+            calculadora.SegundoOperando =this.getOperador(this.txtSegundoOperador.Text);
             operador = (char)this.cmbOperacion.SelectedItem;
             this.calculadora.Calcular(operador);
             this.calculadora.ActualizaHistorialDeOperaciones(operador);
-            this.lblResultado.Text = $"Resultado:{calculadora.Resultado.Valor}"; this.MostrarHistorial();
-
-
+            this.lblResultado.Text = $"Resultado:{calculadora.Resultado.Valor}"; 
+            this.MostrarHistorial();
         }
 
 
